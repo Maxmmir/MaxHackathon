@@ -1,0 +1,102 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Login</title>
+    <style>
+      /* Estilos CSS */
+
+      .container {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        height: 100vh;
+      }
+
+      form {
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        justify-content: center;
+        width: 300px;
+        max-width: 100%;
+      }
+
+      label {
+        display: inline-block;
+        width: 80px;
+        margin-bottom: 10px;
+      }
+
+      input[type="text"],
+      input[type="email"],
+      input[type="password"] {
+        width: 200px;
+        margin-bottom: 10px;
+        padding: 5px;
+      }
+
+      button[type="submit"] {
+        padding: 10px 20px;
+        background-color: #0087F7;
+        color: #fff;
+        border: none;
+        border-radius: 5px;
+        cursor: pointer;
+      }
+
+      p {
+        margin-top: 10px;
+      }
+
+      .error-message {
+        color: red;
+      }
+    </style>
+  </head>
+  <body>
+    <div class="container">
+      <h1>Login</h1>
+      <form action="Hackathon.html" onsubmit="return validateForm()">
+        <label for="name">Name:</label>
+        <input type="text" id="name" name="name" required>
+        <label for="email">Email:</label>
+        <input type="email" id="email" name="email" pattern="[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}" required>
+        <label for="password">Password:</label>
+        <input type="password" id="password" name="password" minlength="5" required>
+        <button type="submit">Login</button>
+      </form>
+    </div>
+
+    <script>
+      function validateForm() {
+        var emailInput = document.getElementById('email');
+        var passwordInput = document.getElementById('password');
+
+        var emailRegex = /[a-zA-Z0-9._%+-]+@[a-zA-Z0-9.-]+\.[a-zA-Z]{2,}/;
+        var passwordLength = passwordInput.value.length;
+
+        if (!emailRegex.test(emailInput.value)) {
+          showError('Invalid email format.');
+          return false;
+        }
+
+        if (passwordLength < 5) {
+          showError('Password must be at least 5 characters long.');
+          return false;
+        }
+
+        return true;
+      }
+
+      function showError(message) {
+        var errorMessage = document.createElement('span');
+        errorMessage.className = 'error-message';
+        errorMessage.textContent = message;
+
+        var form = document.querySelector('form');
+        form.appendChild(errorMessage);
+      }
+    </script>
+  </body>
+</html>

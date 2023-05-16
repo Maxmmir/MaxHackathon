@@ -1,0 +1,192 @@
+<!DOCTYPE html>
+<html>
+<head>
+  <title>Dropzone</title>
+  
+  <style>
+    /* Estilos CSS */
+
+    /*container principal*/
+    .container {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      height: 100vh;
+      background-color: #151822;
+      
+    }
+    
+    .wrapper {
+      display: flex;
+      flex-wrap: wrap;
+      align-items: flex-start;
+      justify-content: center;
+      height: 100vh;
+      padding: 10px;
+      margin-top: 10%;
+    }
+    
+    .eventArchivo {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      margin-bottom: 20px;
+      min-height: 30%;
+    }
+    
+    .Info {
+      display: flex;
+      flex-direction: column;
+      align-items: center;
+      justify-content: center;
+      flex: 1;
+      margin-bottom: 20px;
+      margin-left: 10%;
+      min-height: 30%;
+    }
+
+    /* Estilos de la dropzone */
+    .dropzone {
+      border: 2px dashed #ccc;
+      width: 100%;
+      max-width: 300px;
+      height: 200px;
+      padding: 80px;
+      text-align: center;
+      font-family: Arial, sans-serif;
+      font-size: 18px;
+      color: #fff;
+      border: 2px solid green;
+      background-image: url('img/gato2.jpg');
+      background-size: cover;
+      background-position: center;
+      background-color: rgba(0, 0, 0, 0.3);
+    }
+
+    /* Estilos de resaltado cuando se arrastra un archivo sobre la dropzone */
+    .dropzone.highlight {
+      border-color: #0087F7;
+    }
+
+    /* Estilos del mensaje */
+    .message {
+      margin-top: 20px;
+      font-weight: bold;
+      color: #fff;
+    }
+
+    /* Estilos del botón de confirmación de Subir Archivo*/
+    .confirm-buttonArchivos {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #0c7011;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      max-width: 470px;
+    }
+
+    .confirm-button {
+      margin-top: 20px;
+      padding: 10px 20px;
+      background-color: #0087F7;
+      color: #fff;
+      border: none;
+      border-radius: 5px;
+      cursor: pointer;
+      width: 100%;
+      max-width: 470px;
+      background-color: #151822;
+      border: 2px solid rgb(255, 255, 255);
+      
+    }
+
+    /* Estilos cuando el cursor pasa por encima del botón de confirmación */
+    .confirm-button:hover {
+      background-color: #0c7011;
+    }
+    hr {
+      border: none;
+      height: 1px;
+      background-color: #000;
+      width: 100%;
+      max-width: 470px;
+    }
+    h1{
+      color: #fff;
+    }
+    p{
+      color: #fff;
+    }
+
+  </style>
+</head>
+<body class="container">
+  <div class="wrapper">
+    <div class="eventArchivo">
+      <div id="dropzone" class="dropzone">
+        Arrastra y suelta aquí tus archivos
+      </div>
+      <div id="message" class="message"></div>
+      <button id="confirm" class="confirm-buttonArchivos" disabled>Subir Archivos</button>
+    </div>
+    <div class="Info">
+      <h1>Bienvenido a DDrop</h1>
+      <p>Para subir tus archivos de forma simple a Drive, puedes hacer login en Google.</p>
+      <hr>
+      <a href="Login.html" target="_blank">
+        <button class="confirm-button">Login con Google</button>
+      </a>
+    </div>
+  </div>
+  
+  <script>
+    // JavaScript
+    var dropzone = document.getElementById('dropzone');
+    var confirmButton = document.getElementById('confirm');
+    dropzone.addEventListener('dragenter', highlight, false);
+    dropzone.addEventListener('dragover', highlight, false);
+    dropzone.addEventListener('dragleave', unhighlight, false);
+    dropzone.addEventListener('drop', handleDrop, false);
+    confirmButton.addEventListener('click', handleConfirm, false);
+
+    // Función JS para resaltar la dropzone
+    function highlight(e) {
+      e.preventDefault();
+      dropzone.classList.add('highlight');
+      confirmButton.disabled = false;
+    }
+
+    // Función JS para quitar el resaltado de la dropzone.
+    function unhighlight() {
+      dropzone.classList.remove('highlight');
+    }
+
+    // Función JS para manejar el evento de soltar archivos en la dropzone.
+    function handleDrop(e) {
+      e.preventDefault();
+      var files = e.dataTransfer.files;
+      var message = 'Tu archivo ' + files[0].name + ' se ha subido correctamente.';
+      dropzone.textContent = message;
+    }
+
+    // Función JS para manejar el evento de confirmar la subida de archivos.
+    function handleConfirm() {
+      showMessage("Error", "No hemos podido subir tu archivo, revisa el formato o intenta de nuevo.");
+    }
+
+    // Función JS para mostrar un mensaje en el elemento con el id "message".
+    function showMessage(title, text) {
+      window.alert(title + '\n\n' + text);
+    }
+  </script>
+
+</body>
+</html>
+
+  
